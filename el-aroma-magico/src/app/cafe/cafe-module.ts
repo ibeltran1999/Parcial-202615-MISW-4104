@@ -5,5 +5,6 @@ import { ListarCafe } from './components/listar-cafe/listar-cafe';
 @NgModule({
   declarations: [ListarCafe],
   imports: [CommonModule],
+  exports: [ListarCafe],
 })
 export class CafeModule {}

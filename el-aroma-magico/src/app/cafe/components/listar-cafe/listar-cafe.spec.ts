@@ -83,6 +83,34 @@ describe('ListarCafe', () => {
       .toEqual(['#', 'Nombre', 'Tipo', 'Región']);
   });
 
+  it('debe mostrar tres cafés más el encabezado y sumar los tipos', () => {
+    const tresCafes: Cafe[] = [
+      { ...cafesMock[0], id: 1, nombre: 'Café Blend Uno' },
+      { ...cafesMock[1], id: 2, nombre: 'Café de Origen Dos' },
+      { ...cafesMock[0], id: 3, nombre: 'Café Blend Tres' },
+    ];
+    obtenerCafes.mockReturnValue(of(tresCafes));
+
+    fixture.detectChanges();
+
+    const page = fixture.nativeElement as HTMLElement;
+    const table = page.querySelector('table')!;
+    expect(table).toBeTruthy();
+    expect(table.querySelectorAll('thead tr').length).toBe(1);
+    expect(table.querySelectorAll('tbody tr').length).toBe(3);
+    expect(table.querySelectorAll('tr').length).toBe(4);
+
+    const filas = table.querySelectorAll('tbody tr');
+    tresCafes.forEach((cafe, index) => {
+      const celdas = Array.from(filas[index].querySelectorAll('th, td'));
+      expect(celdas.map((celda) => celda.textContent?.trim())).toEqual([
+        String(cafe.id), cafe.nombre, cafe.tipo, cafe.region,
+      ]);
+    });
+    expect(page.textContent).toContain('Total café de origen: 1');
+    expect(page.textContent).toContain('Total café blend: 2');
+  });
+
   it('should render asynchronous data and calculate totals by type', async () => {
     const response = new Subject<Cafe[]>();
     obtenerCafes.mockReturnValue(response);

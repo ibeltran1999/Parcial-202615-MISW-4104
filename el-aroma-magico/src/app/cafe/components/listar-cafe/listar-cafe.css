@@ -1,0 +1,9 @@
+:host { display: block; }
+section { max-width: 792px; }
+.table { font-size: 18px; margin-bottom: 16px; }
+.table > thead > tr > th { background-color: #343a40; color: white; border: 0; }
+.table > :not(caption) > * > * { padding: 12px 15px; vertical-align: middle; }
+.table tbody tr:last-child > * { border-bottom: 0; }
+.table td { white-space: nowrap; }
+.totals { font-size: 20px; line-height: 1.25; }
+.totals p { margin: 0; }
